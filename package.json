@@ -17,5 +17,8 @@
     "name": "tubes-ksi",
     "version": "1.0.0",
     "main": "index.js",
-    "license": "MIT"
+    "license": "MIT",
+    "dependencies": {
+        "flowbite": "^1.6.5"
+    }
 }

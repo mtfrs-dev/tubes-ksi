@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
     </head>
     <body>
         <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-slate-200 font-roboto">
@@ -32,5 +33,17 @@
                 </main>
             </div>
         </div>
+        @livewireScripts
+        <!-- FlowBite -->
+        <script src="{{ asset('js/flowbite.min.js') }}"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" 
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous">
+        </script>
+        <!-- SweetAlert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        @if (isset($scripts))
+            {{ $scripts }}
+        @endif
     </body>
 </html>

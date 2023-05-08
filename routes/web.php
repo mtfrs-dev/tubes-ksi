@@ -1,8 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +31,22 @@ Route::middleware('auth')->group(function () {
     Route::view('about', 'about')->name('about');
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
+
+    Route::controller(MedicineController::class)->as('medicines.')->group(function(){
+        Route::get('data-obat', 'index')->name('index');
+    });
+
+    Route::controller(CategoryController::class)->as('categories.')->group(function(){
+        Route::get('data-kategori-obat', 'index')->name('index');
+    });
+
+    Route::controller(UnitController::class)->as('units.')->group(function(){
+        Route::get('data-satuan-obat', 'index')->name('index');
+    });
+
+    Route::controller(TransactionController::class)->as('transactions.')->group(function(){
+        Route::get('data-transaksi', 'index')->name('index');
+    });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
