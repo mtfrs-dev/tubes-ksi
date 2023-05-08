@@ -9,15 +9,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class TransactionFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            //
+            'code'          => fake()->name(),
+            'type'          => fake()->unique()->safeEmail(),
+            'user_id'       => rand(),
+            'total_price'   => 100000,
+            'invoice'       => Str::random(10),
         ];
     }
 }
