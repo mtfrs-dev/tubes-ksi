@@ -5,8 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UnitSeeder;
+use Database\Seeders\CategorySeeder;
 use Database\Seeders\TransactionSeeder;
-use Database\Seeders\MedicineCategorySeeder;
+use Database\Seeders\CategoryMedicineSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,9 +34,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UnitSeeder::class);
         
-        \App\Models\Medicine::factory(10)->create();
-        \App\Models\Category::factory(10)->create();
-        $this->call(MedicineCategorySeeder::class);
+        \App\Models\Medicine::factory(50)->create();
+        $this->call(CategorySeeder::class);
+        $this->call(CategoryMedicineSeeder::class);
         $this->call(TransactionSeeder::class);
 
     }

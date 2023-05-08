@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Unit;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -18,9 +20,14 @@ class Medicine extends Model
         'buy_price',
         'sell_price',
         'quantity',
-        'unit',
+        'unit_id',
         'description',
     ];
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
 
     public function categories(): BelongsToMany
     {

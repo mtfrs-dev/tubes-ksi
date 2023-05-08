@@ -4,11 +4,11 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class MedicineCategorySeeder extends Seeder
+class CategoryMedicineSeeder extends Seeder
 {
     public function run(): void
     {
-        \DB::table('medicine_category')->insert(array (
+        \DB::table('category_medicine')->insert(array (
             0 => 
             array (
                 'id' => 1,
@@ -228,7 +228,7 @@ class MedicineCategorySeeder extends Seeder
             27 => 
             array (
                 'id' => 28,
-                'medicine_id' => 9,
+                'medicine_id' => 8,
                 'category_id' => 9,
                 'created_at' => NULL,
                 'updated_at' => NULL,
@@ -237,7 +237,7 @@ class MedicineCategorySeeder extends Seeder
             array (
                 'id' => 29,
                 'medicine_id' => 9,
-                'category_id' => 10,
+                'category_id' => 9,
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

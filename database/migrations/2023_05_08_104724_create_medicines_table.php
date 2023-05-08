@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Unit;
 use App\Models\Category;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->integer('buy_price');
             $table->integer('sell_price');
             $table->integer('quantity');
-            $table->string('unit');
+            $table->foreignIdFor(Unit::class)->constrained()->cascadeOnDelete();
             $table->string('description')->nullable();
             $table->timestamps();
         });

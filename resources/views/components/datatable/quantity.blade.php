@@ -1,0 +1,1 @@
+<p class="{{ $value < 10 ? 'text-red-600' : '' }}">{{ $value }}</p>

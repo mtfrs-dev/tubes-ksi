@@ -11,15 +11,14 @@ class MedicineFactory extends Factory
 {
     public function definition(): array
     {
-        $units = ['botol sirup', 'tablet', 'botol suntik'];
         return [
             'name' => fake()->word(),
             'code' => $this->faker->bothify('##-?????-#####-?##??'),
             'qr_code' => $this->faker->bothify('##-?????-#####-?##??'),
-            'buy_price' => 10000,
-            'sell_price' => 12000,
+            'buy_price' => 1000*rand(5,50),
+            'sell_price' => 1000*rand(50,100),
             'quantity' => rand(50,100),
-            'unit' => $units[rand(0,2)],
+            'unit_id' => rand(1,6),
             'description' => fake()->sentence()
         ];
     }

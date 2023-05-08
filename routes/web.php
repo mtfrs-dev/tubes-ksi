@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(MedicineController::class)->as('medicines.')->group(function(){
         Route::get('data-obat', 'index')->name('index');
+        Route::post('data-obat', 'store')->name('store');
+        Route::post('ubah-data-obat', 'update')->name('update');
     });
 
     Route::controller(CategoryController::class)->as('categories.')->group(function(){

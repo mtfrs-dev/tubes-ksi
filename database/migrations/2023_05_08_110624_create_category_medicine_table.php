@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('medicine_category', function (Blueprint $table) {
+        Schema::create('category_medicine', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Medicine::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
