@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Medicine;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -9,19 +10,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('medicine_category', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code')->unique();
+            $table->foreignIdFor(Medicine::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('drug_categories');
     }
 };

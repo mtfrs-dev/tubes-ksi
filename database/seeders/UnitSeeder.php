@@ -12,6 +12,22 @@ class UnitSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \DB::table('units')->insert(array (
+            0 => 
+            array (
+                'id' => 1,
+                'name' => 'botol sirup'
+            ),
+            1 => 
+            array (
+                'id' => 2,
+                'name' => 'tablet'
+            ),
+            2 => 
+            array (
+                'id' => 3,
+                'name' => 'botol suntik'
+            ),
+        ));
     }
 }
