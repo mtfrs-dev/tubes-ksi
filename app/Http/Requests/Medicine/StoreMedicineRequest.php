@@ -2,13 +2,12 @@
 
 namespace App\Http\Requests\Medicine;
 
-use App\Models\Medicine;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMedicineRequest extends FormRequest
+class StoreMedicineRequest extends FormRequest
 {
-    protected $errorBag = 'update_medicine';
+    protected $errorBag = 'store_medicine';
 
     public function authorize(): bool
     {
@@ -47,7 +46,7 @@ class UpdateMedicineRequest extends FormRequest
             'sell_price'    =>  'Harga Jual Obat',
             'quantity'      =>  'Kuantitas Obat',
             'unit_id'       =>  'Satuan Obat',
-            'description'   =>  'Deskripsi Obat'
+            'description'   =>  'Deskripsi Obat',
         ];
     }
 }

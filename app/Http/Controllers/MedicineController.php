@@ -6,35 +6,39 @@ use App\Models\Unit;
 use App\Models\Category;
 use App\Models\Medicine;
 use Illuminate\Http\Request;
+use App\Http\Requests\Medicine\StoreMedicineRequest;
 use App\Http\Requests\Medicine\UpdateMedicineRequest;
 
 class MedicineController extends Controller
 {
     public function index()
     {
-        // $category = "Sirup";
-        // $medicines = Medicine::query()
-        //     ->with([
-        //         'unit',
-        //         'categories'
-        //     ])
-        //     ->whereHas('categories', function($query) use ($category) {
-        //         $query->where('name', 'like', '%' . $category . '%');
-        //     })
-        //     ->get();
-        // $medicines = Medicine::query()
-        //     ->with([
-        //         'unit',
-        //         'categories'
-        //     ])
-        //     // ->where('units.name', 'Miligram')
-        //     ->get(););
-        // dd($medicines);
-
-        // return view('pages.medicines.index', compact('medicines'));
         $categories = Category::all();
         $units = Unit::all();
         return view('pages.medicines.index', compact('categories', 'units'));
+    }
+
+    public function store(StoreMedicineRequest $request)
+    {
+        $validated = $request->validated();
+
+        $medicine = Medicine::create([
+            'name'          =>  $validated['name'],
+            'code'          =>  $validated['code'],
+            'qr_code'       =>  $validated['qr_code'],
+            'buy_price'     =>  $validated['buy_price'],
+            'sell_price'    =>  $validated['sell_price'],
+            'quantity'      =>  $validated['quantity'],
+            'unit_id'       =>  $validated['unit_id'],
+            'description'   =>  $validated['description'],
+        ]);
+        
+        foreach ($validated['categories'] as $key => $value) {
+            $medicine->categories()->attach($value);
+        }
+
+        return redirect()->back()
+            ->with("success","Data obat berhasil disimpan!");
     }
 
     public function update(UpdateMedicineRequest $request)

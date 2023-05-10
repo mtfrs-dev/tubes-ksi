@@ -1,23 +1,24 @@
 <x-app-layout>
-    <x-slot name="header">
+    {{-- <x-slot name="header">
         {{ __('Data Obat') }}
-    </x-slot>
+    </x-slot> --}}
 
     @include('components.alert')
 
-    <div class="mb-4 inline-flex overflow-hidden w-full bg-white rounded-lg shadow-md">
-        <div class="flex justify-center items-center w-12 bg-blue-500">
-            <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"></path>
-            </svg>
-        </div>
-
-        <div class="px-2 py-1 align-baseline -mx-3">
-            <div class="mx-3">
-                <span class="font-semibold text-blue-500">Info</span>
-                <p class="text-sm text-gray-600">Sample table page</p>
-            </div>
-        </div>
+    <div id="openMedicineStoreButton" class="mb-4 flex justify-between items-center px-3 py-2 overflow-hidden w-full bg-white rounded-lg shadow-md">
+        <p class="w-fit text-xl lg:text-3xl font-medium text-gray-700">
+            Data Obat
+        </p>
+        <button type="button" class="w-fit text-white bg-primary hover:bg-primary-70 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-1.5 pr-3 text-center flex gap-2">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                </svg>
+            </span>
+            <span>
+                {{ __('Data Baru') }}
+            </span>
+        </button>
     </div>
 
     {{-- <p class="w-60 bg-primary text-primary-70"></p>
@@ -107,6 +108,155 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPDATE MEDICINE DETAIL MODAL -->
+    <div id="medicineStoreModal" 
+        class="fixed @if(auth()->user()->role == "ADMIN" && $errors->hasBag('store_medicine')) z-[110] @else z-[-110] @endif inset-0">
+        <div class="absolute z-[112] inset-0 bg-gray-600 bg-opacity-30 flex justify-center items-center py-4">
+            <div class="bg-white w-10/12 md:w-3/5 lg:1/2 xl:w-1/3 rounded-md p-5">
+                <!-- POP UP HEADER -->
+                <div class="flex justify-between items-center mb-6">
+                    <p class="block m-0 text-lg font-semibold text-gray-900 tracking-wide">
+                        Tambah Data Obat
+                    </p>
+                    <button type="button" id="closeMedicineStoreButton" class="block border-none outline-none text-gray-900 hover:text-gray-800 font-medium">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+                
+                <!-- POP UP BODY -->
+                <form action="{{ route('medicines.store') }}" method="POST">
+                    @method('POST')
+                    @csrf
+                    <div class="w-full max-h-[60vh] overflow-y-auto mb-6 px-2 custom-scrollbar">
+                        <!-- Medicine Name -->
+                        <div class="mb-4">
+                            <label for="store_name" class="block mb-2 text-base font-medium text-gray-900">{{ __('Nama Obat') }}</label>
+                            <input type="text" id="store_name" name="name" value="{{ old('name') }}"
+                                class="border-2 border-primary-20 text-primary-50 text-sm rounded-md focus:ring-primary-70 focus:border-primary-70 block w-full p-2.5 custom-placeholder" 
+                                autocomplete="off" placeholder="Nama Obat">
+                            @error('name', 'store_medicine')
+                                <p class="block mt-1 text-xs font-medium text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Medicine Code -->
+                        <div class="mb-4">
+                            <label for="store_code" class="block mb-2 text-base font-medium text-gray-900">{{ __('Kode Obat') }}</label>
+                            <input type="text" id="store_code" name="code" value="{{ old('code') }}"
+                                class="border-2 border-primary-20 text-primary-50 text-sm rounded-md focus:ring-primary-70 focus:border-primary-70 block w-full p-2.5 custom-placeholder" 
+                                autocomplete="off" placeholder="Kode Obat">
+                            @error('code', 'store_medicine')
+                                <p class="block mt-1 text-xs font-medium text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Medicine QR Code -->
+                        <div class="mb-4">
+                            <label for="store_qr_code" class="block mb-2 text-base font-medium text-gray-900">{{ __('Barcode Obat') }}</label>
+                            <input type="text" id="store_qr_code" name="qr_code" value="{{ old('qr_code') }}"
+                                class="border-2 border-primary-20 text-primary-50 text-sm rounded-md focus:ring-primary-70 focus:border-primary-70 block w-full p-2.5 custom-placeholder" 
+                                autocomplete="off" placeholder="Barcode Obat">
+                            @error('qr_code', 'store_medicine')
+                                <p class="block mt-1 text-xs font-medium text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Medicine Category -->
+                        <div class="mb-4">
+                            <label for="store_categories" class="block mb-2 text-base font-medium text-gray-900">{{ __('Kategori Obat') }}</label>
+                            <select name="categories[]" id="store_categories" multiple="multiple"
+                                class="border-2 border-primary-20 text-primary-50 text-sm rounded-md focus:ring-primary-70 focus:border-primary-70 block w-full p-2.5 custom-placeholder">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" 
+                                        @selected(old('categories') && in_array($category->id, old('categories')))>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('categories', 'store_medicine')
+                                <p class="block mt-1 text-xs font-medium text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Medicine Buy Price -->
+                        <div class="mb-4">
+                            <label for="store_buy_price" class="block mb-2 text-base font-medium text-gray-900">{{ __('Harga Beli') }}</label>
+                            <input type="number" id="store_buy_price" name="buy_price" value="{{ old('buy_price') }}"
+                                class="border-2 border-primary-20 text-primary-50 text-sm rounded-md focus:ring-primary-70 focus:border-primary-70 block w-full p-2.5 custom-placeholder" 
+                                autocomplete="off" placeholder="Harga Beli">
+                            @error('buy_price', 'store_medicine')
+                                <p class="block mt-1 text-xs font-medium text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Medicine Sell Price -->
+                        <div class="mb-4">
+                            <label for="store_sell_price" class="block mb-2 text-base font-medium text-gray-900">{{ __('Harga Jual') }}</label>
+                            <input type="number" id="store_sell_price" name="sell_price" value="{{ old('sell_price') }}"
+                                class="border-2 border-primary-20 text-primary-50 text-sm rounded-md focus:ring-primary-70 focus:border-primary-70 block w-full p-2.5 custom-placeholder" 
+                                autocomplete="off" placeholder="Harga Jual">
+                            @error('sell_price', 'store_medicine')
+                                <p class="block mt-1 text-xs font-medium text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Medicine Quantity -->
+                        <div class="mb-4">
+                            <label for="store_quantity" class="block mb-2 text-base font-medium text-gray-900">{{ __('Kuantitas') }}</label>
+                            <input type="number" id="store_quantity" name="quantity" value="{{ old('quantity') }}"
+                                class="border-2 border-primary-20 text-primary-50 text-sm rounded-md focus:ring-primary-70 focus:border-primary-70 block w-full p-2.5 custom-placeholder" 
+                                autocomplete="off" placeholder="Kuantitas">
+                            @error('quantity', 'store_medicine')
+                                <p class="block mt-1 text-xs font-medium text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Medicine Unit -->
+                        <div class="mb-4">
+                            <label for="store_unit_id" class="block mb-2 text-base font-medium text-gray-900">{{ __('Satuan Obat') }}</label>
+                            <select name="unit_id" id="store_unit_id"
+                                class="border-2 border-primary-20 text-primary-50 text-sm rounded-md focus:ring-primary-70 focus:border-primary-70 block w-full p-2.5 custom-placeholder">
+                                <option value="" selected disabled hidden>Pilih Satuan Obat</option>
+                                @foreach ($units as $unit)
+                                    <option value="{{ $unit->id }}" 
+                                        @selected(old('unit_id') == $unit->id)>
+                                        {{ $unit->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('unit_id', 'store_medicine')
+                                <p class="block mt-1 text-xs font-medium text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Medicine Description -->
+                        <div class="mb-4">
+                            <label for="store_description" class="block mb-2 text-base font-medium text-gray-900">{{ __('Deskripsi Obat') }}</label>
+                            <input type="text" id="store_description" name="description" value="{{ old('description') }}"
+                                class="border-2 border-primary-20 text-primary-50 text-sm rounded-md focus:ring-primary-70 focus:border-primary-70 block w-full p-2.5 custom-placeholder" 
+                                autocomplete="off" placeholder="Deskripsi">
+                            @error('description', 'store_medicine')
+                                <p class="block mt-1 text-xs font-medium text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                    </div>
+                    <!-- SUBMIT BUTTON -->
+                    <div class="flex justify-end">
+                        <button type="submit" class="w-fit text-white bg-primary hover:bg-primary-70 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center">
+                            {{ __('Simpan Data') }}
+                        </button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -273,7 +423,10 @@
 
             $(document).ready(function () {
                 let allCategories   = {!! json_encode($categories) !!};
-                let updateCategories = $("#update_categories").select2({
+                $("#store_categories").select2({
+                    placeholder: "Pilih Kategori Obat",
+                });
+                $("#update_categories").select2({
                     placeholder: "Pilih Kategori Obat",
                 });
 
@@ -376,6 +529,28 @@
                     $("#medicine_quantity").text("");
                     $("#medicine_unit").text("");
                     $("#medicine_description").text("");
+                });
+
+                $("#openMedicineStoreButton").click(function (e) { 
+                    e.preventDefault();
+                    $("#medicineStoreModal").removeClass("z-[-110]");
+                    $("#medicineStoreModal").addClass("z-[110]");
+                });
+
+                $("#closeMedicineStoreButton").click(function (e) { 
+                    e.preventDefault();
+                    $("#medicineStoreModal").removeClass("z-[110]");
+                    $("#medicineStoreModal").addClass("z-[-110]");
+                    
+                    $("#store_name").val("");
+                    $("#store_code").val("");
+                    $("#store_qr_code").val("");
+                    $("#store_categories").val("");
+                    $("#store_buy_price").val("");
+                    $("#store_sell_price").val("");
+                    $("#store_quantity").val("");
+                    $("#store_unit_id").val("");
+                    $("#store_description").val("");
                 });
 
                 window.addEventListener('showUpdateForm:medicine', event => {
