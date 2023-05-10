@@ -72,7 +72,7 @@ class MedicineController extends Controller
         $medicine->buy_price    = $validated["buy_price"];
         $medicine->sell_price   = $validated["sell_price"];
         $medicine->quantity     = $validated["quantity"];
-        $medicine->unit_id         = $validated["unit_id"];
+        $medicine->unit_id      = $validated["unit_id"];
 
         $medicine->save();
 

@@ -41,8 +41,6 @@
         <script src="{{ asset('js/jQuery.min.js') }}"></script>
         <!-- SweetAlert -->
         <script src="{{ asset('js/sweet-alert.min.js') }}"></script>
-        <!-- Select2 -->
-        <script src="{{ asset('js/select2.min.js') }}"></script>
         @if (isset($scripts))
             {{ $scripts }}
         @endif

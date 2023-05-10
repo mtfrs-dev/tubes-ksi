@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(CategoryController::class)->as('categories.')->group(function(){
         Route::get('data-kategori-obat', 'index')->name('index');
+        Route::post('data-kategori-obat', 'store')->name('store');
+        Route::post('ubah-data-kategori-obat', 'update')->name('update');
     });
 
     Route::controller(UnitController::class)->as('units.')->group(function(){

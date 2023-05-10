@@ -1,15 +1,12 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        {{ __('Data Obat') }}
-    </x-slot> --}}
 
     @include('components.alert')
 
-    <div id="openMedicineStoreButton" class="mb-4 flex justify-between items-center px-3 py-2 overflow-hidden w-full bg-white rounded-lg shadow-md">
+    <div class="mb-4 flex justify-between items-center px-3 py-2 overflow-hidden w-full bg-white rounded-lg shadow-md">
         <p class="w-fit text-xl lg:text-3xl font-medium text-gray-700">
             Data Obat
         </p>
-        <button type="button" class="w-fit text-white bg-primary hover:bg-primary-70 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-1.5 pr-3 text-center flex gap-2">
+        <button type="button" id="openMedicineStoreButton" class="w-fit text-white bg-primary hover:bg-primary-70 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-1.5 pr-3 text-center flex gap-2">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                     <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
@@ -112,7 +109,7 @@
         </div>
     </div>
 
-    <!-- UPDATE MEDICINE DETAIL MODAL -->
+    <!-- STORE MEDICINE DETAIL MODAL -->
     <div id="medicineStoreModal" 
         class="fixed @if(auth()->user()->role == "ADMIN" && $errors->hasBag('store_medicine')) z-[110] @else z-[-110] @endif inset-0">
         <div class="absolute z-[112] inset-0 bg-gray-600 bg-opacity-30 flex justify-center items-center py-4">
@@ -412,6 +409,9 @@
     </div>
 
     <x-slot name="scripts">
+        <!-- Select2 -->
+        <script src="{{ asset('js/select2.min.js') }}"></script>
+
         <script>
             function capitalizeWords(str) {
                 let words = str.split(' ');

@@ -17,7 +17,6 @@ class MedicineTable extends DataTableComponent
 
     protected $listeners = ['deleteMedicine'];
 
-
     public function configure(): void
     {
         $this->setPrimaryKey('id');
