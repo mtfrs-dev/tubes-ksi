@@ -46,10 +46,14 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(UnitController::class)->as('units.')->group(function(){
         Route::get('data-satuan-obat', 'index')->name('index');
+        Route::post('data-satuan-obat', 'store')->name('store');
+        Route::post('ubah-data-satuan-obat', 'update')->name('update');
     });
 
     Route::controller(TransactionController::class)->as('transactions.')->group(function(){
         Route::get('data-transaksi', 'index')->name('index');
+        Route::post('data-transaksi', 'store')->name('store');
+        Route::post('ubah-data-transaksi', 'update')->name('update');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

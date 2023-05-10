@@ -1,8 +1,7 @@
 <x-app-layout>
 
     @include('components.alert')
-
-    <div class="w-[40%]"></div>
+    
     <div class="mb-4 flex justify-between items-center px-3 py-2 overflow-hidden w-full bg-white rounded-lg shadow-md">
         <p class="w-fit text-xl lg:text-3xl font-medium text-gray-700">
             Data Kategori Obat
@@ -82,7 +81,7 @@
         </div>
     </div>
 
-    <!-- UPDATE CATEGORI DETAIL MODAL -->
+    <!-- UPDATE CATEGORY DETAIL MODAL -->
     <div id="categoryUpdateModal" 
         class="fixed @if(auth()->user()->role == "ADMIN" && $errors->hasBag('update_category')) z-[110] @else z-[-110] @endif inset-0">
         <div class="absolute z-[112] inset-0 bg-gray-600 bg-opacity-30 flex justify-center items-center py-4">

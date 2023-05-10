@@ -18,7 +18,8 @@ return new class extends Migration
             $table->integer('buy_price');
             $table->integer('sell_price');
             $table->integer('quantity');
-            $table->foreignIdFor(Unit::class)->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('unit_id')->nullable();
+            $table->foreign('unit_id')->references('id')->on('units')->onDelete('set null');
             $table->string('description')->nullable();
             $table->timestamps();
         });

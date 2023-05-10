@@ -11,10 +11,9 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::paginate();
-
-        return view('pages.categories.index', compact('categories'));
+        return view('pages.categories.index');
     }
+
     public function store(StoreCategoryRequest $request)
     {
         $validated = $request->validated();
@@ -27,6 +26,7 @@ class CategoryController extends Controller
         return redirect()->back()
             ->with("success","Data kategori obat berhasil disimpan!");
     }
+    
     public function update(UpdateCategoryRequest $request)
     {
         $validated = $request->validated();
