@@ -132,7 +132,7 @@ class MedicineTable extends DataTableComponent
             'buy_price' => $medicine->buy_price,
             'sell_price' => $medicine->sell_price,
             'quantity' => $medicine->quantity,
-            'unit' => $medicine->unit_id,
+            'unit_id' => $medicine->unit_id,
             'description' => $medicine->description,
         ]);
     }
