@@ -16,7 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('type');
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->integer('total_price');
             $table->string('invoice');
             $table->timestamps();

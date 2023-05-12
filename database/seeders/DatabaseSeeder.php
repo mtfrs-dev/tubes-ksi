@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UnitSeeder::class);
         
-        \App\Models\Medicine::factory(50)->create();
+        \App\Models\Medicine::factory(15)->create();
         $this->call(CategorySeeder::class);
         $this->call(CategoryMedicineSeeder::class);
         $this->call(TransactionSeeder::class);
